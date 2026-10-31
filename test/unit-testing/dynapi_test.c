@@ -23633,13 +23633,13 @@ static int test_TABLE (const Dwg_Object *obj)
   }
   {
     Dwg_TABLE_Cell* cells;
-    BITCODE_BL count = 0;
+    unsigned long count = 0;
     if (dwg_dynapi_entity_value (table, "TABLE", "num_cells", &count, NULL)
         && dwg_dynapi_entity_value (table, "TABLE", "cells", &cells, NULL)
         && cells == table->cells)
       pass ();
     else
-      fail ("TABLE.cells [Dwg_TABLE_Cell*] * %u num_cells", count);
+      fail ("TABLE.cells [Dwg_TABLE_Cell*] * %lu num_cells", count);
   }
   {
     BITCODE_BD* col_widths;
