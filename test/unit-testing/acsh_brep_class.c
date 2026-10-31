@@ -150,7 +150,8 @@ api_process (dwg_object *obj)
       CHK_ENTITY_TYPE (_obj, ACSH_BREP_CLASS, revision_major, BL);
       CHK_ENTITY_TYPE (_obj, ACSH_BREP_CLASS, revision_minor1, BS);
       CHK_ENTITY_TYPE (_obj, ACSH_BREP_CLASS, revision_minor2, BS);
-      CHK_ENTITY_TYPE (_obj, ACSH_BREP_CLASS, revision_bytes, TV);
+      CHK_ENTITY_ARRAY (_obj, ACSH_BREP_CLASS, revision_bytes,
+                        sizeof (revision_bytes));
       CHK_ENTITY_TYPE (_obj, ACSH_BREP_CLASS, end_marker, BL);
     }
 

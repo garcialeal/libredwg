@@ -1910,10 +1910,19 @@ EOF
 EOF
                     }
                     else {
+                        # the count field may be wider than BL
+                        # (TABLE.num_cells is unsigned long); size the
+                        # local like the dynapi field, or the value
+                        # lookup writes out of bounds.
+                        my $ctype = $ENT{$name}{$countfield} || 'BL';
+                        $ctype = 'BITCODE_' . $ctype
+                            unless ( $ctype =~ /^(struct|Dwg_)/
+                            or $ctype =~ /^[a-z]/ );
+                        my $cfmt = $ctype eq 'unsigned long' ? '%lu' : '%u';
                         print $fh <<"EOF";
   {
     $type $var;
-    BITCODE_BL count = 0;
+    $ctype count = 0;
     if (dwg_dynapi_entity_value ($lname, "$name", "$countfield", &count, NULL)
         && dwg_dynapi_entity_value ($lname, "$name", "$var", &$svar, NULL)
 EOF
@@ -1928,7 +1937,7 @@ EOF
                         print $fh <<"EOF";
       pass ();
     else
-      fail ("$name.$var [$stype] * %u $countfield", count);
+      fail ("$name.$var [$stype] * $cfmt $countfield", count);
   }
 EOF
                     }
@@ -2226,7 +2235,7 @@ for my $name (@entity_names) {
     printf $inc "%-${n}s %-${n}s  DWG_TYPE_%s,\t1,\t%s\n", "\"$name\",",
         "\"$dxfname\",",
         $xname, stability($xname);
-    if ($name =~ /^3/) {
+    if ( $name =~ /^3/ ) {
         printf $inc "%-${n}s %-${n}s  DWG_TYPE_%s,\t1,\t%s\n", "\"_$name\",",
             "\"$dxfname\",",
             $xname, stability($xname);
