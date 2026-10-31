@@ -150,7 +150,7 @@ api_process (dwg_object *obj)
       CHK_ENTITY_TYPE (body, BODY, revision_major, BL);
       CHK_ENTITY_TYPE (body, BODY, revision_minor1, BS);
       CHK_ENTITY_TYPE (body, BODY, revision_minor2, BS);
-      CHK_ENTITY_TYPE (body, BODY, revision_bytes, TV);
+      CHK_ENTITY_ARRAY (body, BODY, revision_bytes, sizeof (revision_bytes));
       CHK_ENTITY_TYPE (body, BODY, end_marker, BL);
     }
 

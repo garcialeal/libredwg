@@ -1273,6 +1273,9 @@ test_code (const char *dir, const char *filename, int cov)
       return 0;
     }
 #endif
+  // keep the test loglevel: dwg_read_file syncs loglevel from dwg->opts,
+  // which is 0 here and would silence all logging after the first file.
+  g_dwg.opts = loglevel & DWG_OPTS_LOGLEVEL;
   error = dwg_read_file (path, &g_dwg);
   if (error < DWG_ERR_CRITICAL)
     output_test (&g_dwg);
