@@ -328,11 +328,11 @@ main (int argc, char *argv[])
           // else keep from_version
           dwg.header.version = dwg_version;
         }
-      else if (dwg.header.version > R_2000)
+      else if (dwg.header.version > R_2004)
         {
-          // we cannot yet write 2004+
-          printf (" as r2000\n");
-          dwg.header.version = R_2000;
+          // we cannot yet write 2007+
+          printf (" as r2004\n");
+          dwg.header.version = R_2004;
         }
       else
         {
